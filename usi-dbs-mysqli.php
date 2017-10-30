@@ -19,7 +19,7 @@ Extends the standard mysqli database access functions. These classes provide the
 
 class USI_Dbs extends mysqli {
 
-   const VERSION = '1.0.2 (2017-09-05)';
+   const VERSION = '1.0.0 (2017-10-30)';
 
    const PREPARE_ERROR_1 = '; check the manual that corresponds to your MySQL server version for the right syntax to use';
 
