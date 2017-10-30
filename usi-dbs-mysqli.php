@@ -51,7 +51,7 @@ class USI_Dbs_Exception extends Exception { } // Class USI_Dbs_Exception;
 
 class USI_Dbs_Stmt extends mysqli_stmt {
 
-   const VERSION = '1.0.2 (2017-09-05)';
+   const VERSION = '1.0.0 (2017-10-30)';
 
    const BIND_ERROR_1 = "Number of elements in type definition string doesn't match number of bind variables";
    const BIND_ERROR_2 = "Number of variables doesn't match number of parameters in prepared statement";
