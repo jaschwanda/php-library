@@ -2,41 +2,51 @@
 
 class USI_Debug {
 
-   const VERSION = '1.0.0 (2017-10-30)';
+   const VERSION = '1.1.0 (2017-11-12)';
 
    private static $message = null;
+   private static $options = null;
 
    private function __construct() {
    } // __construct();
-   
-   private static function escape($message) {
-      return(str_replace(array('<!--', '-->'), array('<!==', '==>'), $message));
-   } // escape();
-   
+
    public static function exception($e) {
-      self::$message .= '<!--' . PHP_EOL . $e->GetMessage() . PHP_EOL . $e->GetTraceAsString() . PHP_EOL . '-->' . PHP_EOL;
+      self::$message .= $e->GetMessage() . PHP_EOL . $e->GetTraceAsString() . PHP_EOL;
    } // exception();
 
-   public static function get_message() {
+   public static function get_message($keep = false) {
       $message_save = self::$message;
-      self::$message = null;
+      if (!$keep) self::$message = null;
       return($message_save);
    } // get_message();
-   
+
+   public static function init($options = array('initialized' => true)) {
+      if (empty(self::$options)) {
+         self::$options = $options;
+         register_shutdown_function(array(__CLASS__, 'shutdown'));
+      }
+   } // init();
+
    public static function message($message) {
-      self::$message .= '<!-- ' . self::escape($message) . ' -->' . PHP_EOL;
+      self::$message .= $message . PHP_EOL;
    } // message();
 
    public static function output($message = null) {
-      if ($message) self::$message .= '<!-- ' . self::escape($message) . ' -->' . PHP_EOL;
+      if ($message) self::$message .= $message . PHP_EOL;
       echo self::$message;
       self::$message = null;
    } // output();
-   
+
    public static function print_r($prefix, $array, $suffix = '') {
-      self::$message .= '<!-- ' . self::escape($prefix . print_r($array, true) . $suffix) . ' -->' . PHP_EOL;
+      self::$message .= $prefix . print_r($array, true) . $suffix . PHP_EOL;
    } // print_r();
-   
+
+   public static function shutdown() {
+      if (self::$message && !empty(self::$options['log']) && is_callable(self::$options['log'])) {
+         call_user_func(self::$options['log'], self::$message);
+      }
+   } // shutdown();
+
 } // Class USI_Debug;
 
 // --------------------------------------------------------------------------------------------------------------------------- // ?>
