@@ -19,7 +19,7 @@ Extends the standard mysqli database access functions. These classes provide the
 
 class USI_Dbs extends mysqli {
 
-   const VERSION = '1.0.0 (2017-10-30)';
+   const VERSION = '1.0.1 (2017-11-14)';
 
    const PREPARE_ERROR_1 = '; check the manual that corresponds to your MySQL server version for the right syntax to use';
 
@@ -51,7 +51,7 @@ class USI_Dbs_Exception extends Exception { } // Class USI_Dbs_Exception;
 
 class USI_Dbs_Stmt extends mysqli_stmt {
 
-   const VERSION = '1.0.0 (2017-10-30)';
+   const VERSION = '1.0.1 (2017-11-14)';
 
    const BIND_ERROR_1 = "Number of elements in type definition string doesn't match number of bind variables";
    const BIND_ERROR_2 = "Number of variables doesn't match number of parameters in prepared statement";
@@ -67,6 +67,10 @@ class USI_Dbs_Stmt extends mysqli_stmt {
       @ parent::__construct($dbs);
       $this->statement = $statement;
    } // __construct();
+
+   function __destruct() {
+      @ $this->close();
+   } // __destruct();
 
    public function bind_param_x($args) {
       $this->args = $args;
