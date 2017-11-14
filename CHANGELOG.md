@@ -2,6 +2,9 @@
 
 PHP file library changes are logged here using <a href="http://semver.org/">Semantic Versioning</a>.
 
+## 1.1.1 (2017-11-14) ##
+* Added "@" to suppress error message if the USI_Dbs_Stmt::__desctuct() closes a bogus query.
+
 ## 1.1.0 (2017-11-12) ##
 * Reworked code.
 * Added a shutdown handler that logs the messages via a user supplied message handler.
