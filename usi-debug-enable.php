@@ -2,10 +2,9 @@
 
 class USI_Debug {
 
-   const VERSION = '1.1.0 (2017-11-12)';
+   const VERSION = '1.1.2 (2017-12-31)';
 
    private static $message = null;
-   private static $options = null;
 
    private function __construct() {
    } // __construct();
@@ -20,32 +19,20 @@ class USI_Debug {
       return($message_save);
    } // get_message();
 
-   public static function init($options = array('initialized' => true)) {
-      if (empty(self::$options)) {
-         self::$options = $options;
-         register_shutdown_function(array(__CLASS__, 'shutdown'));
-      }
-   } // init();
-
    public static function message($message) {
       self::$message .= $message . PHP_EOL;
    } // message();
 
-   public static function output($message = null) {
+   public static function output($message = null, $prefix = null, $suffix = null) {
       if ($message) self::$message .= $message . PHP_EOL;
-      echo self::$message;
+      if (self::$message) echo $prefix . self::$message . $suffix;
       self::$message = null;
    } // output();
 
-   public static function print_r($prefix, $array, $suffix = '') {
-      self::$message .= $prefix . print_r($array, true) . $suffix . PHP_EOL;
+   public static function print_r($prefix, $array, $suffix = '', $escape = false) {
+      self::$message .= $prefix . ($escape ? str_replace(array('<!--', '-->'), array('<!==', '==>'), 
+         print_r($array, true)) : print_r($array, true)) . $suffix . PHP_EOL;
    } // print_r();
-
-   public static function shutdown() {
-      if (self::$message && !empty(self::$options['log']) && is_callable(self::$options['log'])) {
-         call_user_func(self::$options['log'], self::$message);
-      }
-   } // shutdown();
 
 } // Class USI_Debug;
 
