@@ -3,7 +3,7 @@
 PHP file library changes are logged here using <a href="http://semver.org/">Semantic Versioning</a>.
 
 ## 1.1.2 (2017-12-31) ##
-# Added an escape flag to the print_r() method to supress html comment tags when already inside html comment tags.
+* Added an escape flag to the print_r() method to supress html comment tags when already inside html comment tags.
 * Removed shutdown handler as it was rarely used and can be added by the application if needed.
 
 ## 1.1.1 (2017-11-14) ##
