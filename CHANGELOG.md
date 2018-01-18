@@ -2,7 +2,7 @@
 
 PHP file library changes are logged here using <a href="http://semver.org/">Semantic Versioning</a>.
 
-## 1.1.3 (2018-012-18) ##
+## 1.1.3 (2018-01-18) ##
 * Changed the parent::mysqli() call to parent::__construct() in the USI_Dbs class constructor.
 
 ## 1.1.2 (2017-12-31) ##
