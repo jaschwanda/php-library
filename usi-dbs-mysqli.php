@@ -1,30 +1,28 @@
 <?php // ------------------------------------------------------------------------------------------------------------------------ //
-
 /*
-
-Extends the standard mysqli database access functions. These classes provide the following enhancemenets:
+Extends the standard mysqli database access functions by providing the following enhancemenets:
 
 1) Optionally combines the frequently used prepare(), bind_param(), execute(), store_result() and bind_result() methods into a
    single call.
 
 2) Throws an exception if any of the above methods pitch an error, this allows you to wrap the DBS access code in a try/catch
-   block without having to test for errors after each method call.
+   block insteaad of testing for errors after each method call.
 
 3) Offers the get_bound_statement() method that returns the SQL string that was generated from the prepare() method in case 
-   inspection of the query string is required.
+   inspection of the query string is required. Adds the get_status() method that returns the status of the last query.
 
-4) Shortens common error() messages.
+4) Removes the "check the manual" nonsense from common error() messages.
 
 */
 
 class USI_Dbs extends mysqli {
 
-   const VERSION = '1.1.1 (2017-11-14)';
+   const VERSION = '1.1.3 (2018-01-18)';
 
    const PREPARE_ERROR_1 = '; check the manual that corresponds to your MySQL server version for the right syntax to use';
 
    function __construct($options) {
-      @ parent::mysqli($options['host'], $options['user'], $options['hash'], $options['name']);
+      @ parent::__construct($options['host'], $options['user'], $options['hash'], $options['name']);
       if ($this->connect_errno) throw new USI_Dbs_Exception(__METHOD__. ':connect:' . $this->connect_error);
    } // __construct();
 
